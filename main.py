@@ -32,22 +32,22 @@ def run(playwright: Playwright) -> None:
         length = len(data)
         # print(length)
 
-        loop_var = [i for i in range(length)]
+        length_test = 1
+        
+        loop_var = [i for i in range(length_test)]
 
         for index, value in enumerate(loop_var):
 
             # Print the item
             # print(data[index][0])
             
-            page.locator("#s2id_autogen2_search").fill(data[index][0])
+            page.locator("#s2id_autogen2_search").fill('MWB11049438')
             
             order_no = data_order[index][0]
             ticket_no = data[index][0]
             
             # print(order_no)
             # print(ticket_no)
-            
-            info_value = ticket_no + 'Open Delivery required for Order No: ' + order_no
             
             with page.expect_popup() as page1_info:
                 
@@ -69,6 +69,8 @@ def run(playwright: Playwright) -> None:
                 page1.locator("#currentStatusDescription").fill("R")
                 page1.locator("#currentStatusDescription").press("CapsLock")
                 page1.locator("#currentStatusDescription").fill("Renoir to cancel.")
+                page1.get_by_role("cell", name="Device delivered, invoice item Device not delivered, cancel order Error corrected, resubmit Continue tracking order Update Ticket Refresh Back Help Close").get_by_role(
+                    "button", name="Device not delivered, cancel order").click()
 
     # ---------------------
     context.close()
