@@ -58,7 +58,7 @@ def run(playwright: Playwright) -> None:
                     "button", name="Edit Ticket").click()
                 page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
                     "button", name="Allocate To Me").click()
-                page1.locator("#currentStatusDescription").click()
+                page1.locator("#currentStatusDescription").click()#locator
                 page1.locator("#currentStatusDescription").fill("Renoir closing.")
                 page1.get_by_role("cell", name="Stock Delivered Delivery Error Update Ticket Refresh Back Help Close").get_by_role(
                     "button", name="Delivery Error").click()
