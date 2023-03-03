@@ -1,5 +1,11 @@
 from playwright.sync_api import Playwright, sync_playwright, expect
 import json
+import typer 
+import pandas as pd
+from pathlib import Path
+from rich.console import Console
+
+
 
 def run(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=False, slow_mo=100)

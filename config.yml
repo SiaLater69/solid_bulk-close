@@ -1,0 +1,8 @@
+solid:
+  username: SNjana
+  password: SN22Feb@MWEB! 
+  base_url: https://solidportaldev.mwebaws.co.za/mwebcore/admin/login/login.jsp
+
+playwright:
+  headless: False
+  slow_mo: 250
