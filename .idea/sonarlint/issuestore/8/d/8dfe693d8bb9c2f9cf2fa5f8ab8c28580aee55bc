@@ -1,0 +1,6 @@
+
+qpython:S1192_"ZDefine a constant instead of duplicating this literal "#currentStatusDescription" 8 times.(ÙÇå`
+6python:S125"Remove this commented out code.(žÀ‹
+ppython:S117>"ZRename this local variable "Bulk_Data" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÐÚÑ
+opython:S117<"XRename this local variable "Bulk_Dt" to match the regular expression ^[_a-z][a-z0-9_]*$.(¢Ì‡è
+Ipython:S1481B",Remove the unused local variable "len_test".(£”ÿ«øÿÿÿÿ

@@ -22,16 +22,16 @@ def read_data(datafile: Path):
 
     return data
 
-
+# column2 = str
 @app.command()
-def runapp(configfile: Path, datafile: Path, column: str, start: int, end: int):
+def runapp(configfile: Path, datafile: Path, column: str, start: int, end: int, column2: str):
     config = read_config(configfile)
     data = read_data(datafile)
 
-    run(config, data, column, start, end)
+    run(config, data, column,start, end, column2)
 
 
-def run(config, data, column, start, end) -> None:
+def run(config, data, column,start, end, column2) -> None:
     username = config['solid']['username']
     password = config['solid']['password']
     base_url = config['solid']['base_url']
@@ -58,7 +58,7 @@ def run(config, data, column, start, end) -> None:
 
         open_tickets = data.loc[data['Status'] == 'Open']
 
-        length_of_data = len(open_tickets)
+        # length_of_data = len(open_tickets)
 
         # len_test = 1
 
@@ -71,67 +71,68 @@ def run(config, data, column, start, end) -> None:
                 ticket_number = ticket[column]
                 page.locator("#s2id_autogen2_search").fill(ticket_number)
 
-                print(ticket_number, index)
+                # print(ticket_number, index)
 
-        # page.pause()
+        for index, col in open_tickets.iterrows():
+             if index >= start and index <= end:
+                  order_number = col[column2]
 
         # with page.expect_popup() as popup_info:
-
+        
         value = page.locator(".select-label").inner_text()
+        console.log(order_number)
+        print(value)
+        page.locator(".select-label").click()
+        page.pause()
+        if value == 'Open':
+                # page.locator(".select-label").click()
+                
+                page1 = page.wait_for_popup()
+                
+                    # popup = popup_info.value
 
-        # print(value)
-        #
-        # if value == 'Open':
-        #
-        #     page.locator(".select-label").click()
-        #
-        #     with page.expect_popup() as popup_info:
-        #
-        #         page1 = popup_info.value
-        #
-        #     # page1 = popup_info.value
-        #
-        #     page.pause()
-        #
-        #     page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role("button", name="Edit Ticket").click()
-        #
-        #     page1.locator("#currentStatusDescription").click()
-        #
-        #     page1.locator("#currentStatusDescription").fill("Renoir closing.")
-        #
-        #     page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
-        #         "button", name="Allocate To Me").click()
-        #
-        #     page1.locator("#currentStatusDescription").click()
-        #     page1.locator("#currentStatusDescription").fill(
-        #         "Renoir to cancel.")
-        #
-        #     page1.get_by_role("cell", name="Stock Delivered Delivery Error Update Ticket Refresh Back Help Close").get_by_role(
-        #         "button", name="Delivery Error").click()
-        #
-        #     page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
-        #         "button", name="Allocate To Me").click()
-        #
-        #     page1.locator("#currentStatusDescription").click()
-        #     page1.locator("#currentStatusDescription").fill(
-        #         "Renoir to cancel.")
-        #
-        #     page1.get_by_role("cell", name="Device delivered, invoice item Device not delivered, cancel order Error corrected, resubmit Continue tracking order Update Ticket Refresh Back Help Close").get_by_role(
-        #         "button", name="Device not delivered, cancel order").click()
-        #     page1.close()
-        #     # page1.get_by_role("button", name="Close").click()
-        #     page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role(
-        #     "button", name="Edit Ticket").click()
-        #
-        #     page1.locator("#currentStatusDescription").click()
-        #
-        #     page1.locator("#currentStatusDescription").fill("Renoir closing.")
-        #
-        #     page1.get_by_role("button", name="Close").click()
-        #
-        # elif value != 'Open':
-        #
-        #     print('restarting')
+                # popup = popup_info.value
+                
+                page1.pause()
+                
+                page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role("button", name="Edit Ticket").click()
+
+                page1.locator("#currentStatusDescription").click()
+                
+                page1.locator("#currentStatusDescription").fill("Renoir closing.")
+                
+                page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
+                    "button", name="Allocate To Me").click()
+
+                page1.locator("#currentStatusDescription").click()
+                page1.locator("#currentStatusDescription").fill(
+                    "Renoir to cancel.")
+
+                page1.get_by_role("cell", name="Stock Delivered Delivery Error Update Ticket Refresh Back Help Close").get_by_role(
+                    "button", name="Delivery Error").click()
+
+                page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
+                    "button", name="Allocate To Me").click()
+
+                page1.locator("#currentStatusDescription").click()
+                page1.locator("#currentStatusDescription").fill(
+                    "Renoir to cancel.")
+
+                page1.get_by_role("cell", name="Device delivered, invoice item Device not delivered, cancel order Error corrected, resubmit Continue tracking order Update Ticket Refresh Back Help Close").get_by_role(
+                    "button", name="Device not delivered, cancel order").click()
+                page1.close()
+                page1.get_by_role("button", name="Close").click()
+                page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role(
+                "button", name="Edit Ticket").click()
+
+                page1.locator("#currentStatusDescription").click()
+
+                page1.locator("#currentStatusDescription").fill("Renoir closing.")
+
+            
+        elif value != 'Open':
+            
+                print('restarting')
 
     # ---------------------
     context.close()

@@ -1,0 +1,9 @@
+
+npython:S1192"VDefine a constant instead of duplicating this literal "#s2id_autogen2_search" 3 times.(­ç‹Ê
+qpython:S1192F"ZDefine a constant instead of duplicating this literal "#currentStatusDescription" 6 times.(ÙÇå`
+kpython:S11923"NDefine a constant instead of duplicating this literal ".select-label" 3 times.(ÎÒäíşÿÿÿÿ
+apython:S1854="JRemove this assignment to local variable 'page1'; the value is never used.(Æ·¾1
+qpython:S117"ZRename this local variable "Bulk_Data" to match the regular expression ^[_a-z][a-z0-9_]*$.(œÑÒÊ
+tpython:S117"XRename this local variable "Bulk_Dt" to match the regular expression ^[_a-z][a-z0-9_]*$.(…İùÿÿÿÿ
+dpython:S1542"LRename function "Ticket" to match the regular expression ^[a-z_][a-z0-9_]*$.(Â°—×
+Ipython:S1481",Remove the unused local variable "len_test".(£”ÿ«øÿÿÿÿ

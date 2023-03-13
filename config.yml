@@ -5,4 +5,4 @@ solid:
 
 playwright:
   headless: False
-  slow_mo: 250
+  slow_mo: 1000

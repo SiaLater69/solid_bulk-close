@@ -1,4 +1,12 @@
 
-;python:S125"Remove this commented out code.(Øµ¸„ÿÿÿÿÿ
-;python:S125"Remove this commented out code.(Øµ¸„ÿÿÿÿÿ
-6python:S125"Remove this commented out code.(®ùÒ³
+opython:S1192P"RDefine a constant instead of duplicating this literal "Renoir to cancel." 4 times.(’©ö€ÿÿÿÿÿ
+œpython:S1192K"„Define a constant instead of duplicating this literal "Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close" 4 times.(Î©M
+gpython:S1192L"ODefine a constant instead of duplicating this literal "Allocate To Me" 4 times.(÷ÚÜÜ
+rpython:S1192G"[Define a constant instead of duplicating this literal "#currentStatusDescription" 12 times.(ÙÇå`
+kpython:S11924"NDefine a constant instead of duplicating this literal ".select-label" 3 times.(ÎÒäíşÿÿÿÿ
+apython:S1854d"JRemove this assignment to local variable 'page1'; the value is never used.(Æ·¾1
+qpython:S117"ZRename this local variable "Bulk_Data" to match the regular expression ^[_a-z][a-z0-9_]*$.(œÑÒÊ
+tpython:S117"XRename this local variable "Bulk_Dt" to match the regular expression ^[_a-z][a-z0-9_]*$.(…İùÿÿÿÿ
+upython:S117"YRename this local variable "Bulk_Tic" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ñê»»ûÿÿÿÿ
+Ipython:S1481 ",Remove the unused local variable "len_test".(£”ÿ«øÿÿÿÿ
+Ipython:S1481",Remove the unused local variable "Bulk_Tic".(Ñê»»ûÿÿÿÿ

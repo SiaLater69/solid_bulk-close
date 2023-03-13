@@ -1,4 +1,5 @@
 from playwright.sync_api import Playwright, sync_playwright, expect
+from typing import Optional
 from pathlib import Path
 import json
 import pandas as pd
@@ -22,12 +23,14 @@ def read_data(datafile: Path):
 
     return data
 
+# column2 = str
 @app.command()
 def runapp(configfile: Path, datafile: Path, column: str):
     config = read_config(configfile)
     data = read_data(datafile)
 
     run(config, data, column)
+
 
 def run(config, data, column) -> None:
     username = config['solid']['username']
@@ -37,7 +40,8 @@ def run(config, data, column) -> None:
     slowmo = config['playwright']['slow_mo']
 
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
+
+        browser = playwright.chromium.launch(headless=headless, slow_mo=slowmo)
         context = browser.new_context()
         page = context.new_page()
 
@@ -48,12 +52,14 @@ def run(config, data, column) -> None:
 
         page.locator("input[name=\"password\"]").fill(password)
         page.get_by_role("button", name="Login").click()
-            
+
         page.get_by_role("link", name="Quick Search").click()
-        
+
         page.locator("#s2id_autogen2_search").click()
 
-        Bulk_Data = data.loc[data['Status'] == 'Open', column]
+        Bulk_Dt = data
+
+        Bulk_Data = Bulk_Dt.loc[Bulk_Dt['Status'] == 'Open', column]
 
         length_of_data = len(Bulk_Data)
 
@@ -70,62 +76,58 @@ def run(config, data, column) -> None:
         for index, value in enumerate(loop_var):
 
             page.locator("#s2id_autogen2_search").fill(Bulk_Data[index])
-            
+
             print(Bulk_Data[index])
-            
+
             page.pause()
-            
-            # with page.expect_popup() as popup_info:
 
-            value = page.locator(".select-label").inner_text()
-            
-            print(value)
-            
-            if value == 'Open':
+            # without using with page.expect_popup():
+            page.click(".select-label")
+            popup_promise = page.await_for_popup()
+            popup = popup_promise.result()
 
-                page.locator(".select-label").click()
-                
-                with page.expect_popup() as popup_info:
-                
-                    page1 = popup_info.value
+            page1 = popup.page
 
-                page1 = popup_info.value
-                
-                page1.pause()
-                
-                page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role("button", name="Edit Ticket").click()
+            page1.pause()
 
-                page1.locator("#currentStatusDescription").click()
+            page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role("button", name="Edit Ticket").click()
+
+            page1.locator("#currentStatusDescription").click()
                 
-                page1.locator("#currentStatusDescription").fill("Renoir closing.")
+            page1.locator("#currentStatusDescription").fill("Renoir closing.")
                 
-                page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
+            page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
                     "button", name="Allocate To Me").click()
 
-                page1.locator("#currentStatusDescription").click()
-                page1.locator("#currentStatusDescription").fill(
+            page1.locator("#currentStatusDescription").click()
+            page1.locator("#currentStatusDescription").fill(
                     "Renoir to cancel.")
 
-                page1.get_by_role("cell", name="Stock Delivered Delivery Error Update Ticket Refresh Back Help Close").get_by_role(
+            page1.get_by_role("cell", name="Stock Delivered Delivery Error Update Ticket Refresh Back Help Close").get_by_role(
                     "button", name="Delivery Error").click()
 
-                page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
+            page1.get_by_role("cell", name="Allocate To Me Allocate Admin Update Ticket Refresh Back Help Close").get_by_role(
                     "button", name="Allocate To Me").click()
 
-                page1.locator("#currentStatusDescription").click()
-                page1.locator("#currentStatusDescription").fill(
+            page1.locator("#currentStatusDescription").click()
+            page1.locator("#currentStatusDescription").fill(
                     "Renoir to cancel.")
 
-                page1.get_by_role("cell", name="Device delivered, invoice item Device not delivered, cancel order Error corrected, resubmit Continue tracking order Update Ticket Refresh Back Help Close").get_by_role(
+            page1.get_by_role("cell", name="Device delivered, invoice item Device not delivered, cancel order Error corrected, resubmit Continue tracking order Update Ticket Refresh Back Help Close").get_by_role(
                     "button", name="Device not delivered, cancel order").click()
-                page1.close()
-            elif value != 'Open':
-            
-                print('restarting')
+            page1.close()
+            page1.get_by_role("button", name="Close").click()
+            page1.get_by_role("cell", name="Edit Ticket Refresh Close Help Close").get_by_role(
+                "button", name="Edit Ticket").click()
+
+            page1.locator("#currentStatusDescription").click()
+
+            page1.locator("#currentStatusDescription").fill("Renoir closing.")
 
     # ---------------------
     context.close()
     browser.close()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app()
